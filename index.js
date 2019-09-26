@@ -117,10 +117,10 @@ var ModalBox = createReactClass({
     this.handleOpenning(this.props);
     // Needed for IOS because the keyboard covers the screen
     if (Platform.OS === 'ios') {
-      this.subscriptions = [
+      /*this.subscriptions = [
         Keyboard.addListener('keyboardWillChangeFrame', this.onKeyboardChange),
         Keyboard.addListener('keyboardDidHide', this.onKeyboardHide)
-      ];
+      ];*/
     }
   },
 
@@ -432,6 +432,15 @@ var ModalBox = createReactClass({
           </Animated.View>
         </TouchableWithoutFeedback>
       );
+    }
+
+    if (this.props.backdropPricing) {
+      backdrop = (
+        <Animated.View importantForAccessibility="no" style={[styles.absolute, {opacity: this.state.backdropOpacity}]}>
+          <View style={[styles.absolute, {backgroundColor:this.props.backdropColor, opacity: this.props.backdropOpacity}]}/>
+          {this.props.backdropContent || []}
+        </Animated.View>
+      )
     }
 
     return backdrop;
